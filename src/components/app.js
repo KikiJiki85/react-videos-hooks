@@ -1,32 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import SearchBar from './search-bar';
-import youtube from '../apis/youtube';
 import VideoList from './video-list';
 import VideoDetail from './video-detail';
+import useVideos from '../hooks/use-videos'
 
 
 const App = () => {
-    const [videos, setVideos] = useState([]);
+   
     const [selectedVideo, setSelectedVideo] = useState(null);
+    const [videos, search] = useVideos('');
 
     useEffect(() => {
-        onTermSubmit();
-    },[]);
-
-    const onTermSubmit = async (term) => {
-        const response = await youtube.get('/search',{
-            params: {
-                q: term
-            }
-        });
-
-        setVideos(response.data.items);
-        setSelectedVideo(response.data.items[0]);
-    };
+        setSelectedVideo(videos[0]);
+    },[videos]);
+        
 
     return(
         <div className="ui container">
-            <SearchBar onFormSubmit={onTermSubmit}/>
+            <SearchBar onFormSubmit={search}/>
             <div className="ui grid">
                 <div className="ui row">
                     <div className="eleven wide column">
