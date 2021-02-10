@@ -5,11 +5,6 @@ const SearchBar = ({ onFormSubmit }) => {
 
     const [term, setTerm] = useState('');
 
-
-    const onInputChange = (evt) => {
-        setTerm(evt.target.value);
-    };
-
     const onSubmit = (evt) => {
         evt.preventDefault();
         onFormSubmit(term);
@@ -23,7 +18,7 @@ const SearchBar = ({ onFormSubmit }) => {
                     <input 
                         type="text"
                         value={term}
-                        onChange={onInputChange}
+                        onChange={(evt) => setTerm(evt.target.value)}
                     />
                 </div>
             </form>
